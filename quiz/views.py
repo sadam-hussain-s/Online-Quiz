@@ -69,8 +69,11 @@ def result(request):
         else:
             warn = "SOME ERROR OCCURS, please refresh the page and try again or close the window and open it again !!!!"
             return render(request, 'home.html', {'warn':warn}) #return home page with error message
-    SaveData = User(StudentName=username[0], Scores=score) #to store data to database
-    SaveData.save()
+    try:
+        SaveData = User(StudentName=username[0], Scores=score) #to store data to database
+        SaveData.save()
+    except:
+        print(error)
     return render(request, 'result.html', {'score':score, 'username':username[0]})
 
 
